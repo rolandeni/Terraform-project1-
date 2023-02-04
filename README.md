@@ -279,4 +279,8 @@ create the first block of code to update and upgrade your linux server.
 
 images are below.
 
-![vpc1](images/vpc.webp)00*
+![1](images/1.png)
+![2](images/2.png)
+![3](images/3.png)
+![4](images/4.png)
+
