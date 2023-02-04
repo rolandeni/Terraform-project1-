@@ -1,0 +1,48 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: update & upgrade server
+    apt:
+      update_cache: yes
+      upgrade: yes
+
+  - name: install Apache
+    apt:
+      name: apache2
+      state: latest
+
+  - name: remove the default apache page 
+    file:
+      path: /var/www/html
+      state: absent
+
+  - name: TO GET web application FROM REPO
+    git: >
+      repo=https://github.com/rolandeni/HTML
+      dest=/opt/html
+      force=yes
+      accept_hostkey=yes
+
+  - name: TO replace web applicatin folder
+    shell: sudo mv -f /opt/html /var/www/
+
+  
+  - name: install php extension
+    shell: sudo apt install php7.4-cli -y
+  
+  # - name: TO convert php to html
+  - name: convert php to html
+    shell:
+      chdir: /var/www/html/
+      cmd: php index.php > index.html
+
+
+
+  - name: restart Apache
+    service:
+      name: apache2
+      state: restarted
+      enabled: yes
